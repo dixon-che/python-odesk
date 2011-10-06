@@ -272,46 +272,47 @@ class HR(Namespace):
 
     '''offer api'''
 
-    def get_offers(self, buyer_team_reference=None, status=None,
-                   job_ref=None,
-                   buyer_ref=None, provider_ref=None, agency_ref=None,
+    def get_offers(self, buyer_team__reference=None, status=None,
+                   job__reference=None,
+                   include_sub_teams=None,
+                   provider__reference=None, agency_team__reference=None,
                    created_time_from=None, created_time_to=None,
                    page_offset=0, page_size=20, order_by=None):
         """
         Retrieve a list of all the offers on a specific job or within a specific team
 
         Parameters
-          buyer_team_reference  The team reference (optional)
-          status                active/filled (optional: defaults to active)
-          job_ref               The job reference (optional)
-          buyer_ref             (optional)
-          provider_ref          (optional)
-          agency_ref            (optional)
-          created_time_from     timestamp e.g.'2008-09-09 00:00:01' (optional)
-          created_time_to       timestamp e.g.'2008-09-09 00:00:01' (optional)
-          page_offset           Number of entries to skip (optional)
-          page_size             Page size in number of entries (optional: default 20)
-          order_by              (optional)
+          buyer_team__reference   The team reference (optional)
+          status                  active/filled (optional: defaults to active)
+          job__reference          The job reference (optional)
+          include_sub_teams       (optional)
+          provider__reference     (optional)
+          agency_team__reference  (optional)
+          created_time_from       timestamp e.g.'2008-09-09 00:00:01' (optional)
+          created_time_to         timestamp e.g.'2008-09-09 00:00:01' (optional)
+          page_offset             Number of entries to skip (optional)
+          page_size               Page size in number of entries (optional: default 20)
+          order_by                (optional)
         """
         url = 'offers'
         data = {}
-        if buyer_team_reference:
-            data['buyer_team__reference'] = buyer_team_reference
+        if buyer_team__reference:
+            data['buyer_team__reference'] = buyer_team__reference
 
         if status:
             data['status'] = status
 
-        if job_ref:
-            data['job_ref'] = job_ref
+        if job__reference:
+            data['job__reference'] = job__reference
 
-        if buyer_ref:
-            data['buyer_ref'] = buyer_ref
+        if type(include_sub_teams) is bool:
+            data['include_sub_teams'] = int(include_sub_teams)
 
-        if provider_ref:
-            data['provider_ref'] = provider_ref
+        if provider__reference:
+            data['provider__reference'] = provider__reference
 
-        if agency_ref:
-            data['agency_ref'] = agency_ref
+        if agency_team__reference:
+            data['agency_team__reference'] = agency_team__reference
 
         if created_time_from:
             data['created_time_from'] = created_time_from
